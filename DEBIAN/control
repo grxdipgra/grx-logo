@@ -1,0 +1,9 @@
+Package: grx-logo
+Priority: optional
+Section: grx
+Maintainer: Oficina Software Libre Diputación de Granada <osl@dipgra.es>
+Architecture: all
+Version: 0.1
+Depends: 
+Description: Cambia los logos de kubuntu para KubuntuGrX
+

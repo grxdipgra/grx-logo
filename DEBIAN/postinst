@@ -1,0 +1,21 @@
+#!/bin/bash
+
+SPLASH_QML="/usr/share/plasma/look-and-feel/org.kde.breeze.desktop/contents/splash/Splash.qml"
+DIR_SPLASH_QML="/usr/share/plasma/look-and-feel/org.kde.breeze.desktop/contents/splash"
+DIPGRA_SPLASH="Diputación de Granada"
+IMAGEN_DIPGRA="images/dipgra.svgz"
+IMAGEN_PLYMOUTH="/usr/share/plymouth/themes/kubuntu-logo/images"
+
+mv $IMAGEN_PLYMOUTH/logo.png $IMAGEN_PLYMOUTH/logo_old.png
+mv $IMAGEN_PLYMOUTH/logo-dipgra.png $IMAGEN_PLYMOUTH/logo.png
+mv $IMAGEN_PLYMOUTH/logo-glow.png $IMAGEN_PLYMOUTH/logo-glow-old.png
+mv $IMAGEN_PLYMOUTH/logo-glow-dipgra.png $IMAGEN_PLYMOUTH/logo-glow.png
+
+cp $DIR_SPLASH_QML/Splash.qml $DIR_SPLASH_QML/Splash_old.qml
+
+awk '/'Plasma\ made\ by\ KDE'/ { gsub (/'Plasma\ made\ by\ KDE'/, '"\"$DIPGRA_SPLASH\""' ) }; { print > '"\"$SPLASH_QML\""' }' $SPLASH_QML
+awk '/'images"\/"plasma.svgz'/ { gsub (/'images"\/"plasma.svgz'/, '"\"$IMAGEN_DIPGRA\""' ) }; { print > '"\"$SPLASH_QML\""' }' $SPLASH_QML
+
+update-initramfs -u
+
+exit 0
